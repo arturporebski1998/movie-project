@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="mo")
+@Table(name="movies")
 @AllArgsConstructor
 public class Movie {
     public int getId() {
@@ -32,7 +32,6 @@ public class Movie {
     public void setAvgRate(double avgRate) {
         this.avgRate = avgRate;
     }
-
     public String getFilmGenre() {
         return filmGenre;
     }
