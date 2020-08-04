@@ -1,10 +1,13 @@
 package practices.movie.Model;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 
 
 @Entity
-@Table(name="movies")
+@Table(name="mo")
+@AllArgsConstructor
 public class Movie {
     public int getId() {
         return id;
@@ -59,16 +62,6 @@ public class Movie {
     }
 
     public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Movie(int id, int date, double avgRate, String filmGenre, String director, String country, String description) {
-        this.id = id;
-        this.date = date;
-        this.avgRate = avgRate;
-        this.filmGenre = filmGenre;
-        this.director = director;
-        this.country = country;
         this.description = description;
     }
 
