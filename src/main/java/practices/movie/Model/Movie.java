@@ -1,6 +1,7 @@
 package practices.movie.Model;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="movies")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Movie implements Serializable {
     private String title;
 
