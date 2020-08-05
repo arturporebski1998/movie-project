@@ -11,7 +11,7 @@ public class MovieController {
     @Autowired
     MovieRepository repository;
 
-    @RequestMapping("/save")
+    @RequestMapping("/movies")
     public String addMovie() {
         repository.save(new Movie("Interstellar"));
         return "Done";
