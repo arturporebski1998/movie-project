@@ -22,21 +22,21 @@ public class MovieController {
 
 
     //get movie
-    @GetMapping("movies")
+    @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() {
         return movieService.getAllMovies();
     }
 
 
     //save movie
-    @PostMapping("movies")
-    public String saveMovie(@ModelAttribute("movie") Movie movie) {
+    @RequestMapping(value = "/movies", method = RequestMethod.POST)
+    public String saveMovie(@RequestBody Movie movie) {
         movieService.saveMovie(movie);
         return "Done";
     }
 
     //update movie
-    @PutMapping("movies/{id}")
+    @RequestMapping(value = "/movies/{}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateMovie(@RequestBody Movie movie, @PathVariable long id) {
 
         Optional<Movie> movieOptional = movieRepository.findById(id);
@@ -50,14 +50,10 @@ public class MovieController {
     }
 
     //delete movie
-    @DeleteMapping("movies/{id}")
+    @RequestMapping(value = "/movies/{}", method = RequestMethod.DELETE)
     public void deleteMovie(@ModelAttribute("movie") Movie movie, @PathVariable int id) {
         movieService.deleteMovie(movie, id);
     }
-
-
-
-
 
 
 }
