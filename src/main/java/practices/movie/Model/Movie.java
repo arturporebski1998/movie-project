@@ -3,12 +3,19 @@ package practices.movie.Model;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name="movies")
 @AllArgsConstructor
-public class Movie {
+public class Movie implements Serializable {
+    private String title;
+
+    public Movie(String title) {
+        this.title = title;
+    }
+
     public int getId() {
         return id;
     }
@@ -32,12 +39,12 @@ public class Movie {
     public void setAvgRate(double avgRate) {
         this.avgRate = avgRate;
     }
-    public String getFilmGenre() {
-        return filmGenre;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setFilmGenre(String filmGenre) {
-        this.filmGenre = filmGenre;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getDirector() {
@@ -67,14 +74,14 @@ public class Movie {
     @Id
     private int id;
 
-    @Column(name="col1")
+    @Column
     private int date;
 
     @Column
     double avgRate;
 
     @Column
-    private String filmGenre;
+    private String genre;
 
     @Column
     private String director;
