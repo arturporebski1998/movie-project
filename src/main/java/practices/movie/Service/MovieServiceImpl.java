@@ -29,8 +29,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void deleteMovie(Movie movie, int id) {
-        movieRepository.deleteById((long) id);
+    public void deleteMovie(long movieId) {
+        movieRepository.deleteById(movieId);
+    }
+
+    @Override
+    public void checkIfEmptyField(Movie movie, int id) {
+
     }
 
 

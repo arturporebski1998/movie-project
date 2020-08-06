@@ -12,35 +12,27 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Movie implements Serializable {
-    private String title;
 
-    public Movie(String title) {
-        this.title = title;
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getDate() {
-        return date;
-    }
+    public int getDate() { return date; }
 
     public void setDate(int date) {
         this.date = date;
     }
 
-    public double getAvgRate() {
-        return avgRate;
-    }
+    public double getAvgRate() { return avgRate; }
 
     public void setAvgRate(double avgRate) {
         this.avgRate = avgRate;
     }
+
     public String getGenre() {
         return genre;
     }
@@ -73,8 +65,15 @@ public class Movie implements Serializable {
         this.description = description;
     }
 
+    public String getTitle() { return title; }
+
+    public void setTitle(String title) { this.title = title; }
+
     @Id
-    private int id;
+    private long id;
+
+    @Column
+    private String title;
 
     @Column
     private int date;

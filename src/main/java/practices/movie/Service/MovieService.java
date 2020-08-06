@@ -7,5 +7,6 @@ import java.util.List;
 public interface MovieService {
     List<Movie> getAllMovies();
     void saveMovie(Movie movie);
-    void deleteMovie(Movie movie, int id);
+    void deleteMovie(long movieId);
+    void checkIfEmptyField(Movie movie, int id);
 }

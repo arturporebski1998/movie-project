@@ -1,7 +1,6 @@
 package practices.movie.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import practices.movie.Model.Movie;
 import practices.movie.Repository.MovieRepository;
@@ -30,30 +29,25 @@ public class MovieController {
 
     //save movie
     @RequestMapping(value = "/movies", method = RequestMethod.POST)
-    public String saveMovie(@RequestBody Movie movie) {
-        movieService.saveMovie(movie);
-        return "Done";
+    public Movie saveMovie(@RequestBody Movie movie) {
+        return this.movieRepository.save(movie);
     }
 
     //update movie
-    @RequestMapping(value = "/movies/{}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateMovie(@RequestBody Movie movie, @PathVariable long id) {
-
-        Optional<Movie> movieOptional = movieRepository.findById(id);
-
-        if (movieOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        movieRepository.save(movie);
-        return ResponseEntity.noContent().build();
+    @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
+        public void updateMovie(@PathVariable("id") Long movieId, @RequestBody Movie movie) {
+           Movie movieUp =  movieRepository.getOne(movieId);
+           if (movie == null) {
+               throw new IllegalStateException("no product with id" + movieId);
+           }
+           movie.setId(movieId);
+           movieRepository.save(movie);
     }
 
     //delete movie
-    @RequestMapping(value = "/movies/{}", method = RequestMethod.DELETE)
-    public void deleteMovie(@ModelAttribute("movie") Movie movie, @PathVariable int id) {
-        movieService.deleteMovie(movie, id);
+    @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
+    public void deleteMovie(@PathVariable("id") Long movieId){
+        movieService.deleteMovie(movieId);
     }
-
 
 }
