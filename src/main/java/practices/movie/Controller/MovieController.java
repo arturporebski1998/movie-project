@@ -19,7 +19,6 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
-
     //get movie
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() {
