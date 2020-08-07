@@ -43,7 +43,7 @@ public class MovieController {
            movie.setId(movieId);
            movieRepository.save(movie);
     }
-
+//test
     //delete movie
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
     public void deleteMovie(@PathVariable("id") Long movieId){
