@@ -14,6 +14,7 @@ import practices.movie.Service.MovieService;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class MovieController {
 
     @Autowired
