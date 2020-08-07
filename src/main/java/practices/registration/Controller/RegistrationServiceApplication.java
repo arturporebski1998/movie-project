@@ -18,23 +18,23 @@ public class RegistrationServiceApplication {
     @Autowired
     private UserRepository repository;
 
-    @PostMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@RequestBody User user) {
         repository.save(user);
         return "Hi " + user.getName() + " your Registration process successfully completed";
     }
 
-    @GetMapping("/getAllUsers")
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
     public List<User> findAllUsers() {
         return repository.findAll();
     }
 
-    @GetMapping("/findUser/{email}")
+    @RequestMapping(value = "/findUser/{email}", method = RequestMethod.GET)
     public List<User> findUser(@PathVariable String email) {
         return repository.findByEmail(email);
     }
 
-    @DeleteMapping("/cancel/{id}")
+    @RequestMapping(value = "/cancel/{id}", method = RequestMethod.DELETE)
     public List<User> cancelRegistration(@PathVariable int id) {
         repository.deleteById(id);
         return repository.findAll();
