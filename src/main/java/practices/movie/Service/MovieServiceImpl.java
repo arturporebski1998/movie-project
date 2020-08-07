@@ -12,31 +12,4 @@ import java.util.Optional;
 @Service
 public class MovieServiceImpl implements MovieService {
 
-    @Autowired
-    private MovieRepository movieRepository;
-
-    @Autowired
-    private MovieService movieService;
-
-    @Override
-    public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
-    }
-
-    @Override
-    public void saveMovie(Movie movie) {
-        this.movieRepository.save(movie);
-    }
-
-    @Override
-    public void deleteMovie(long movieId) {
-        movieRepository.deleteById(movieId);
-    }
-
-    @Override
-    public void checkIfEmptyField(Movie movie, int id) {
-
-    }
-
-
 }
