@@ -70,6 +70,7 @@ public class Movie implements Serializable {
     public void setTitle(String title) { this.title = title; }
 
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private long id;
 
     @Column
