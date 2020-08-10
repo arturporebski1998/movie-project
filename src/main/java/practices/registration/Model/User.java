@@ -16,16 +16,14 @@ import javax.persistence.Table;
     @AllArgsConstructor
     @NoArgsConstructor
     @ToString
-    @Table(name="USER_REG_TBL")
+    @Table(name="users")
     public class User {
         @Id
         @GeneratedValue
         private int id;
         private String name;
-        private String surname;
         private String email;
         private int age;
-        private String domain;
 
         public int getId() {
             return id;
@@ -41,14 +39,6 @@ import javax.persistence.Table;
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getSurname() {
-            return surname;
-        }
-
-        public void setSurname(String surname) {
-            this.surname = surname;
         }
 
         public String getEmail() {
@@ -67,12 +57,6 @@ import javax.persistence.Table;
             this.age = age;
         }
 
-        public String getDomain() {
-            return domain;
-        }
 
-        public void setDomain(String domain) {
-            this.domain = domain;
-        }
     }
 
