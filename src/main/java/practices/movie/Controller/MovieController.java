@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import practices.movie.Model.Movie;
 import practices.movie.Repository.MovieRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import practices.movie.Service.MovieService;
@@ -37,9 +38,11 @@ public class MovieController {
 
 
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @Validated @RequestBody Movie movieDetails){
-        Movie movie = movieRepository.getOne(movieId);
-
+    public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @Validated @RequestBody Movie movieDetails) {
+        Optional<Movie> optMovie = movieRepository.findById(movieId);
+        Movie movie;
+        try {
+            movie = optMovie.get();
             movie.setTitle(movieDetails.getTitle());
             movie.setDate(movieDetails.getDate());
             movie.setAvgRate(movieDetails.getAvgRate());
@@ -47,10 +50,13 @@ public class MovieController {
             movie.setDirector(movieDetails.getDirector());
             movie.setCountry(movieDetails.getCountry());
             movie.setDescription(movieDetails.getDescription());
+        } catch (NoSuchElementException ex) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
-
+        }
         return new ResponseEntity<>(this.movieRepository.save(movie), HttpStatus.OK);
     }
+
 
 
     //delete movie
