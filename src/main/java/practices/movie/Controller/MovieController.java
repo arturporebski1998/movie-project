@@ -7,6 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import practices.movie.Model.Movie;
 import practices.movie.Repository.MovieRepository;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class MovieController {
 
     //get movie
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
-    public ResponseEntity<Movie> getAllMovies() {
+    public ResponseEntity<LinkedList<Movie>> getAllMovies() {
         return new ResponseEntity(this.movieRepository.findAll(), HttpStatus.OK);
     }
 
@@ -38,23 +40,13 @@ public class MovieController {
 
 
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @Validated @RequestBody Movie movieDetails) {
+    public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @RequestBody Movie movieDetails) {
         Optional<Movie> optMovie = movieRepository.findById(movieId);
-        Movie movie;
-        try {
-            movie = optMovie.get();
-            movie.setTitle(movieDetails.getTitle());
-            movie.setDate(movieDetails.getDate());
-            movie.setAvgRate(movieDetails.getAvgRate());
-            movie.setGenre(movieDetails.getGenre());
-            movie.setDirector(movieDetails.getDirector());
-            movie.setCountry(movieDetails.getCountry());
-            movie.setDescription(movieDetails.getDescription());
-        } catch (NoSuchElementException ex) {
+        if (optMovie.isPresent()) {
+            return new ResponseEntity<>(this.movieRepository.save(movieDetails), HttpStatus.OK);
+        }else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         }
-        return new ResponseEntity<>(this.movieRepository.save(movie), HttpStatus.OK);
     }
 
 
