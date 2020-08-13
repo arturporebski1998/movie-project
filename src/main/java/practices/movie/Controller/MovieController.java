@@ -31,12 +31,15 @@ public class MovieController {
     }
 
     //save movie
+    // more descriptive, like addMovie, make sure the movie that arrives does not have an Id
+    // otherwise you will update existing record
     @RequestMapping(value = "/movies", method = RequestMethod.POST)
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return new ResponseEntity(this.movieRepository.save(movie), HttpStatus.OK);
     }
 
-    //update movie
+    // update movie
+    // make sure that movieDetails has the same id as the movieId or remove movieId from endpoint. Put tells us it is an update, so we know that movieDetails has ID
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @RequestBody Movie movieDetails) {
         Optional<Movie> optMovie = movieRepository.findById(movieId);
@@ -48,6 +51,7 @@ public class MovieController {
     }
 
     //delete movie
+    // make sure the movie exists in DB
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Movie> deleteMovie(@PathVariable("id") Long movieId) {
         movieRepository.deleteById(movieId);
