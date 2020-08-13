@@ -3,17 +3,12 @@ package practices.movie.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import practices.movie.Model.Movie;
 import practices.movie.Repository.MovieRepository;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import practices.movie.Service.MovieService;
 
 
 @RestController
@@ -23,13 +18,16 @@ public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
 
-    @Autowired
-    private MovieService movieService;
-
     //get movie
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     public ResponseEntity<LinkedList<Movie>> getAllMovies() {
         return new ResponseEntity(this.movieRepository.findAll(), HttpStatus.OK);
+    }
+
+    //get movie by id
+    @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Movie> getOneMovie(@PathVariable(value = "id") Long movieId) {
+        return new ResponseEntity(this.movieRepository.findById(movieId), HttpStatus.OK);
     }
 
     //save movie
@@ -38,27 +36,25 @@ public class MovieController {
         return new ResponseEntity(this.movieRepository.save(movie), HttpStatus.OK);
     }
 
-
+    //update movie
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Movie> updateMovie(@PathVariable(value = "id") Long movieId, @RequestBody Movie movieDetails) {
         Optional<Movie> optMovie = movieRepository.findById(movieId);
         if (optMovie.isPresent()) {
             return new ResponseEntity<>(this.movieRepository.save(movieDetails), HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-
-
     //delete movie
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Movie> deleteMovie(@PathVariable("id") Long movieId){
+    public ResponseEntity<Movie> deleteMovie(@PathVariable("id") Long movieId) {
         movieRepository.deleteById(movieId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //update movie
+
 //    @RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
 //    public void updateMovie(@PathVariable("id") Long movieId, @RequestBody Movie movie) {
 //        Movie movieUp =  movieRepository.getOne(movieId);
