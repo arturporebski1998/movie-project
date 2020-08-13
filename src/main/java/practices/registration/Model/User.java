@@ -1,3 +1,4 @@
+// Everything with identity and authorization should be in aggregated package, add practices.identity.model, practices.identity.repository etc
 package practices.registration.Model;
 
 import lombok.AllArgsConstructor;
